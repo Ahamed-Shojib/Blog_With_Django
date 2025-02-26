@@ -1,15 +1,7 @@
 
 {% extends "base.html" %}
-
-{% block title_block %}
-    Sign Up
-{% endblock %}
-
-{% if registered%}
-
-    <div class="alert-success">You have successfully registered. Please <a href="{% url 'login' %}">log in</a> to continue.  </div>
-
-{% else %}
+{% load crispy_forms_tags %}
+{% block title_block %} Sign Up {% endblock %}
 
     {% block body_block %}
 
@@ -21,18 +13,25 @@
         <title>Sign Up</title>
     </head>
     <body>
-        <div class="container">
-            <h2>Sign Up</h2>
+        <div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin-top: 30px;">
+            {% if registered%}
+            <div class="alert alert-success">
+                You have successfully registered. Please <a href="">log in</a> to continue.  
+            </div>
+
+            {% else %}
+            <h2>Create a New Account</h2>
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Sign Up</button>
+                {{form|crispy}}
+                <br>
+                <button class="btn btn-outline-success mb-2" type="submit">Sign Up</button>
             </form>
             <p>Already have an account? <a href="">Log in here</a></p>
         </div>
     </body>
     </html>
+    {% endif %}
 
     {% endblock %}
 
-{% endif %}
