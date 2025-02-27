@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title_block %} Change Profile {% endblock %}
+
+{% block body_block %}
+{% if changed_profile %}
+    <div class="alert alert-success" role="alert" style="max-width: 50%;margin: 20px auto;">
+        Profile Updated Successfully!
+    </div>
+{% endif %}
+<div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+<h2>Change Profile</h2>
+<hr class="dropdown-divider">
+<form method="POST" class="mt-4" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-warning">Update Profile</button>
+</form>
+</div>
+{% endblock %}

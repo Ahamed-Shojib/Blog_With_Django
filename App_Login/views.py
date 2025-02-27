@@ -1,16 +1,17 @@
 from django.shortcuts import render,HttpResponseRedirect,reverse
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
 from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponse 
 from django.contrib.auth.decorators import login_required
+from App_Login.forms import SignUpForm,UserChangeForm,EditProfileForm
 
 # Create your views here.
 
 def signUp(request):
-    form = UserCreationForm()
+    form = SignUpForm()
     registered = False
     if request.method == 'POST':
-        form = UserCreationForm(data = request.POST)
+        form = SignUpForm(data = request.POST)
         if form.is_valid():
             form.save()
             registered = True
@@ -45,3 +46,35 @@ def LogOut_X(request):
 #User Home
 def user_home(request):
     return render(request,'App_Login/user_home.html')
+
+#User Profile
+def user_profile(request):
+    return render(request,'App_Login/user_profile.html',context={})
+
+#Change user profile
+@login_required
+def change_profile(request):
+    current_user = request.user
+    changed_profile = False
+    form = EditProfileForm(instance=current_user)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST,instance=current_user)
+        if form.is_valid():
+            form.save()
+            changed_profile = True
+            form = EditProfileForm(instance=current_user)
+    return render(request,'App_Login/change_profile.html',context={'form':form,'changed_profile':changed_profile})
+
+#Change Password
+@login_required
+def change_password(request):
+    current_user = request.user
+    changed =  False
+    form = PasswordChangeForm(current_user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(current_user,data=request.POST)
+        if form.is_valid():
+            form.save()
+            changed = True
+            form = PasswordChangeForm(current_user)
+    return render(request,'App_Login/change_password.html',context={'form':form,'changed':changed})

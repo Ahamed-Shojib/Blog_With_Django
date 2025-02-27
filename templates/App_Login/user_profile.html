@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title_block %} User Profile {% endblock %}
+
+{% block body_block %}
+<div class="container" style="max-width: 60%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+<h2>Your Profile</h2>
+<hr class="dropdown-divider">
+<p><b>Username:</b> {{ user.username }}</p>
+<p><b>Email:</b> {{ user.email }}</p>
+<p><b>First Name:</b> {{ user.first_name }}</p>
+<p><b>Last Name:</b> {{ user.last_name }}</p>
+<br>
+<a href="{% url 'App_Login:change_profile' %}" class="btn btn-outline-success">Change Profile Info</a>
+
+</div>
+{% endblock %}
