@@ -13,21 +13,21 @@
         <title>Sign Up</title>
     </head>
     <body>
-        <div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin-top: 30px;">
+        <div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
             {% if registered%}
             <div class="alert alert-success">
-                You have successfully registered. Please <a href="">log in</a> to continue.  
+                You have successfully registered. Please <a href="{% url 'App_Login:login'%}">log in</a> to continue.  
             </div>
 
             {% else %}
-            <h2>Create a New Account</h2>
+            <h2 class="text-center">Create a New Account</h2>
             <form method="POST">
                 {% csrf_token %}
                 {{form|crispy}}
                 <br>
-                <button class="btn btn-outline-success mb-2" type="submit">Sign Up</button>
+                <button class="btn btn-outline-success d-block mx-auto mb-2" type="submit">Sign Up</button>
             </form>
-            <p>Already have an account? <a href="">Log in here</a></p>
+            <p class="text-center">Already have an account? <a href="{% url 'App_Login:login' %}">Log in here</a></p>
         </div>
     </body>
     </html>

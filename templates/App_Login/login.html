@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title_block %} Log In {% endblock %}
+
+    {% block body_block %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Log In</title>
+    </head>
+    <body>
+        <div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+            <h2 class="text-center">Login</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-outline-success my-2" type="submit">Login</button>
+            <label  class="m-2"><a href="">Forgotten Password</a> OR Create Account <a href="{%url 'App_Login:signup'%}">sign Up</a></label>
+            </form>
+        </div>
+    </body>
+    </html>
+
+    {% endblock %}
+
