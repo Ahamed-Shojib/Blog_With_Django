@@ -44,6 +44,8 @@
                     
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       {% if user.is_authenticated %}
+                      <li> <a class="nav-link" href="{% url 'App_Login:user_home' %}">Home</a></li>
+                      <li><hr class="dropdown-divider"></li>
                       <li> <a class="nav-link" href="{% url 'App_Login:logout_x' %}">Log Out</a></li>
                       {% else %}
                       <li> <a class="nav-link" href="{% url 'App_Login:login' %}">Log In</a></li>
@@ -63,7 +65,7 @@
                   </button>
                   {% else %}
                   <button class="btn btn-sm btn-outline-primary mx-2 ">
-                    <a style="color:rgb(3, 61, 104);font-weight:600" class="nav-link " href="{% url 'App_Login:signup' %}">Signup</a>
+                    <a style="color:rgb(3, 61, 104);font-weight:600" class="nav-link " href="{% url 'App_Login:login' %}">LogIn</a>
                   </button>
                   {% endif %}
                 </form>

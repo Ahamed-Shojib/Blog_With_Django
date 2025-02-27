@@ -40,3 +40,8 @@ def LogOut(request):
 def LogOut_X(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+
+#User Home
+def user_home(request):
+    return render(request,'App_Login/user_home.html')
