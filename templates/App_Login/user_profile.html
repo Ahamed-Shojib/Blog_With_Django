@@ -4,13 +4,30 @@
 
 {% block body_block %}
 <div class="container" style="max-width: 60%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+{% if user.user_profile %}
+    <h2>Your Profile</h2>
+    <img src="/media/{{user.user_profile.profile_pic}}" class="rounded-circle mx-3" width='120px' height='120px' alt="profile picture">
+    <br>
+    <a class="btn btn-outline-primary btn-sm mx-4 my-2" href="{% url 'App_Login:change_profile_pic' %}" role="button">Change Photo</a>
+    <hr class="dropdown-divider">
+    <p><b>Username:</b> {{ user.username }}</p>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>First Name:</b> {{ user.first_name }}</p>
+    <p><b>Last Name:</b> {{ user.last_name }}</p>
+    <br>
+{%else%}
 <h2>Your Profile</h2>
+<img src="/media/profile_pics/pro_1.webp" class="rounded-circle mx-3" width='120px' height='120px' alt="Default profile picture">
+<br>
+<a class="btn btn-outline-primary btn-sm mx-4 my-2" href="{% url 'App_Login:add_profile_pic' %}" role="button">Change Photo</a>
 <hr class="dropdown-divider">
 <p><b>Username:</b> {{ user.username }}</p>
 <p><b>Email:</b> {{ user.email }}</p>
 <p><b>First Name:</b> {{ user.first_name }}</p>
 <p><b>Last Name:</b> {{ user.last_name }}</p>
 <br>
+{%endif%}
+
 <a href="{% url 'App_Login:change_profile' %}" class="btn btn-outline-success">Change Profile Info</a>
 
 </div>

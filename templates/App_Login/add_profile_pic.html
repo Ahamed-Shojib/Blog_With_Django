@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title_block %} Change Profile Photo {% endblock %}
+
+{% block body_block %}
+{% if add_profile_pic %}
+    <div class="alert alert-success" role="alert" style="max-width: 50%;margin: 20px auto;">
+        Profile Photo Updated Successfully!
+    </div>
+{% endif %}
+<div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+<h2>Change Profile Photo</h2>
+<hr class="dropdown-divider">
+<form method="POST" class="mt-4" enctype="multipart/form-data">
+    {% csrf_token %}
+    <img src="/media/{{user.user_profile.profile_pic}}" class="rounded-circle my-2" width='120px' height='120px' alt="profile picture">
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Update Photo</button>
+</form>
+</div>
+{% endblock %}

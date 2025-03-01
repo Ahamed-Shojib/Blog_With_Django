@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,Passwo
 from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponse 
 from django.contrib.auth.decorators import login_required
-from App_Login.forms import SignUpForm,UserChangeForm,EditProfileForm
+from App_Login.forms import SignUpForm,UserChangeForm,EditProfileForm,profilePic
 
 # Create your views here.
 
@@ -78,3 +78,28 @@ def change_password(request):
             changed = True
             form = PasswordChangeForm(current_user)
     return render(request,'App_Login/change_password.html',context={'form':form,'changed':changed})
+
+
+#Add Profile Pic
+@login_required
+def add_profile_pic(request):
+    form = profilePic()
+    if request.method == 'POST':
+        form = profilePic(request.POST,request.FILES)
+        if form.is_valid():
+            user_obj = form.save(commit=False)
+            user_obj.user = request.user
+            user_obj.save()
+            return HttpResponseRedirect(reverse('App_Login:user_profile'))
+    return render(request,'App_Login/add_profile_pic.html',context={'form':form})
+
+#Change Profile Pic
+@login_required
+def change_profile_pic(request):
+    form = profilePic(instance=request.user.user_profile)
+    if request.method == 'POST':
+        form = profilePic(request.POST,request.FILES,instance=request.user.user_profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('App_Login:user_profile'))
+    return render(request,'App_Login/add_profile_pic.html',context={'form':form})

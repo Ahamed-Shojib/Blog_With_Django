@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from App_Login import views
 
 app_name = 'App_Login'
 
@@ -12,4 +12,7 @@ urlpatterns = [
     path('userprofile/', views.user_profile, name='user_profile'),
     path('changeprofile/', views.change_profile, name='change_profile'),
     path('password/', views.change_password, name='change_password'),
+    path('addpropic/', views.add_profile_pic, name='add_profile_pic'),
+    path('change-pro-pic',views.change_profile_pic, name='change_profile_pic'),
 ]
+
