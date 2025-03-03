@@ -1,21 +1,44 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block title_block %} Blog Details {% endblock %}
 
 {% block body_block %}
 <div class="container" style="max-width: 100%;border: 1px solid rgb(227, 236, 244);border-radius: 10px;padding: 20px;margin: 30px auto;">
     <div class="row">
-        {% for blog in blogs %}
         <div class="col-md-12">
             <h3>{{ blog.blog_title|capfirst }}</h3>
             <div class="my-2">
-                <b>Author: <i>{{blog.author}}, </i></b>
-                <i>{{blog.publish_date}}</i>
+                <b>Author : <i>{{blog.author|capfirst}} </i></b><br>
+                <b>Publish Date : </b> <i>{{blog.publish_date}}</i><br>
+                <b>Last Update : </b> <i>{{blog.update_date}}</i><br>
+                <b>Catagory : </b> <i>{{blog.catagory}}</i>
             </div>
             <img src="/media/{{blog.blog_image}}" class="img-fluid rounded my-2" style="float: right; margin-left: 10px; width: 400px; height: auto;"  alt="Blog Image">
             <p style="text-align:'justify'">{{ blog.blog_content|linebreaks }}</p>
         </div>
         <hr>
-        {% endfor %}
+        <div class="col-md-7">
+            <h3>All Comments</h3>
+            {% for comment in blog.blog_comment.all %}
+            <div class="card my-2">
+                <div class="card-header">
+                    <b>{{comment.user}},</b>
+                    <i>{{comment.comment_date}}</i>
+                </div>
+                <div class="card-body">
+                    <p>{{comment.comment}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-5">
+            <h3>Comments</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ Comment_form|crispy }}
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

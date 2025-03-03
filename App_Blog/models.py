@@ -7,6 +7,7 @@ class Blog(models.Model):
     blog_title = models.CharField(max_length=264, verbose_name='Put a Title')
     slug = models.SlugField(max_length=264, unique=True)
     blog_content = models.TextField(verbose_name='What is on your mind?')
+    catagory = models.CharField(max_length=150, verbose_name='Add Catagory')
     blog_image = models.ImageField(upload_to='blog_images', verbose_name='Image')
     publish_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
@@ -23,6 +24,8 @@ class Comment(models.Model):
     comment = models.TextField()
     comment_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-comment_date',)
     def __str__(self):
         return self.comment
     
