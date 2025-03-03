@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title_block %} Blog Details {% endblock %}
+
+{% block body_block %}
+<div class="container" style="max-width: 100%;border: 1px solid rgb(227, 236, 244);border-radius: 10px;padding: 20px;margin: 30px auto;">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-12">
+            <h3>{{ blog.blog_title|capfirst }}</h3>
+            <div class="my-2">
+                <b>Author: <i>{{blog.author}}, </i></b>
+                <i>{{blog.publish_date}}</i>
+            </div>
+            <img src="/media/{{blog.blog_image}}" class="img-fluid rounded my-2" style="float: right; margin-left: 10px; width: 400px; height: auto;"  alt="Blog Image">
+            <p style="text-align:'justify'">{{ blog.blog_content|linebreaks }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

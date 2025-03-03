@@ -1,8 +1,24 @@
 {% extends "base.html" %}
+{% load custom_filter %}
+{% block title_block %} Blog List {% endblock %}
 
-{%block title_block%} Home {%endblock%}
-
-{% block Body_block %}
-    <h1>Blog List</h1>
-    
+{% block body_block %}
+<div class="container" style="max-width: 100%;border: 1px solid rgb(227, 236, 244);border-radius: 10px;padding: 20px;margin: 30px auto;">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-8">
+            <h3>{{ blog.blog_title|capfirst }}</h3>
+            <div class="my-2">
+                <b>Author: <i>{{blog.author}}, </i></b>
+                <i>{{blog.publish_date}}</i>
+            </div>
+            <p class="text-justify">{{ blog.blog_content|range_filter|linebreaks }}</p> 
+            <a href="{% url 'App_Blog:blog_detail' slug=blog.slug %}" class="btn btn-sm btn-primary my-2">Read More</a>
+        </div>
+        <div class="col-md-4">
+            <img src="/media/{{blog.blog_image}}" class="img-fluid rounded my-2" style="float: right; margin-left: 10px; width: 200px; height: auto;" alt="Blog Image">
+        </div>
+        <hr>
+        {% endfor %}
+</div>
 {% endblock %}
