@@ -43,6 +43,12 @@ class BlogList(ListView):
 def blog_detail(request,slug):
     blog = Blog.objects.get(slug=slug)
     Comment_form = BlogCommentForm()
+  
+    already_liked = Likes.objects.filter(blog=blog,user=request.user)
+    if already_liked:
+        liked = True
+    else:
+        liked = False
 
     if request.method == 'POST':
         Comment_form = BlogCommentForm(request.POST)
@@ -53,6 +59,24 @@ def blog_detail(request,slug):
             comment.blog = blog
             comment.save()
             return HttpResponseRedirect(reverse('App_Blog:blog_detail',kwargs={'slug':slug}))
-    #comment = Comment.objects.filter(blog=blog)
-    #context = {'blog':blog,'comment':comment}
-    return render(request,'App_Blog/blog_detail.html',context={'blog':blog,'Comment_form':Comment_form})
+    return render(request,'App_Blog/blog_detail.html',context={'blog':blog,'Comment_form':Comment_form,'liked':liked})
+
+#Like View
+@login_required
+def liked(request,pk):
+    blog = Blog.objects.get(pk=pk)
+    user = request.user
+    already_liked = Likes.objects.filter(blog=blog,user=user)
+    if not already_liked:
+        like = Likes(blog=blog,user=user)
+        like.save()
+    return HttpResponseRedirect(reverse('App_Blog:blog_detail',kwargs={'slug':blog.slug}))
+
+#Dislike View
+@login_required
+def disliked(request,pk):
+    blog = Blog.objects.get(pk=pk)
+    user = request.user
+    already_liked = Likes.objects.filter(blog=blog,user=user)
+    already_liked.delete()
+    return HttpResponseRedirect(reverse('App_Blog:blog_detail',kwargs={'slug':blog.slug}))
