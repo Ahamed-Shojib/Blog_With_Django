@@ -28,7 +28,7 @@ def LogIn(request):
             user = authenticate(username = username,password = password)
             if user is not None:
                 login(request,user)
-                return render(request,'App_Login/user_home.html')
+                return render(request,'App_Blog/blog_list.html')
     return render(request,'App_Login/login.html',context={'form':form})
 
 @login_required
