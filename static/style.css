@@ -1,3 +1,31 @@
-h2{
-    margin-top: 50%;
+@media only screen and (max-width: 768px) {
+    #log_response {
+        max-width: 96%;
+        margin: 15% auto; 
+    }
 }
+  
+
+  @media only screen and (min-width: 769px) {
+    #log_response {
+        max-width: 50%;
+        margin: 7% auto;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #reg_response {
+        max-width: 96%;
+        margin: 7% auto; 
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    #reg_response {
+        max-width: 60%;
+        margin: 7% auto;
+    }
+  }
+
+
+  

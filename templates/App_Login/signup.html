@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title_block %} Sign Up {% endblock %}
 
@@ -8,9 +9,13 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
-        <div class="container" style="max-width: 50%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
+        <div class="container" id="reg_response" style="border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;">
             {% if registered%}
             <div class="alert alert-success">
                 You have successfully registered. Please <a href="{% url 'App_Login:login'%}">log in</a> to continue.  
