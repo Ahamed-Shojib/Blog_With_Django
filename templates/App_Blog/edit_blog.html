@@ -1,24 +1,35 @@
 
 {% extends "base.html" %}
-
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block title_block %} Edit Blog {% endblock %}
 
 {% block body_block %}
-{% if blog.author == user %}
-<div class="container" style="max-width: 70%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
-<h2>Edit Your Blog :</h2>
-<hr class="dropdown-divider">
-<form method="POST" class="mt-4" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-warning">Update</button>
-</form>
-</div>
-{% else %}
-<div class="container" style="max-width: 70%;border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;margin: 30px auto;">
-<h2>Sorry, You are not Author of this Blog</h2>
-</div>
-{% endif %}
-{% endblock %}
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        {% if blog.author == user %}
+        <div class="container" id="blog_response" style="border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;">
+        <h2>Edit Your Blog :</h2>
+        <hr class="dropdown-divider">
+        <form method="POST" class="mt-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        </div>
+        {% else %}
+        <div class="container" id="blog_response" style="border: 1px solid rgb(3, 61, 104);border-radius: 10px;padding: 20px;">
+        <h2>Sorry, You are not Author of this Blog</h2>
+        </div>
+        {% endif %}
+        {% endblock %}
+    </body>
+</html>

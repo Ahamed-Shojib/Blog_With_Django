@@ -1,45 +1,49 @@
 {% extends "base.html" %}
+{% load static %}
 {% load custom_filter %}
 {% block title_block %} Blog List {% endblock %}
+
+{% block body_block %}
 
 <html>
     <head>
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
-{% block body_block %}
-<div class="container" style="max-width: 90%;border: 1px solid rgb(227, 236, 244);border-radius: 10px;padding: 20px;margin: 30px auto;">
-    <div class="row">
-        {% for blog in blogs %}
-        <div class="col-md-8">
-            <div class="card my-2">
-                <div class="card-header">
-                    <b><h3>{{ blog.blog_title|capfirst }}</h3></b>
-                    <b>Author: <i>{{blog.author}}, </i></b>
-                    <i>{{blog.publish_date}}</i><br>
-                    <b>Category: </b> <i>{{blog.catagory}}</i> ,
-                    <b>Likes: </b> <i>{{blog.liked_blog.count}}</i> ,
-                    <b>Comments: </b> <i>{{blog.blog_comment.count}}</i>
+
+        <div class="container" id="blog_response" style="border: 1px solid rgb(227, 236, 244);border-radius: 10px;padding: 20px;">
+            <div class="row">
+                {% for blog in blogs %}
+                <div class="col-md-8">
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <b><h3>{{ blog.blog_title|capfirst }}</h3></b>
+                            <b>Author: <i>{{blog.author}}, </i></b>
+                            <i>{{blog.publish_date}}</i><br>
+                            <b>Category: </b> <i>{{blog.catagory}}</i> ,
+                            <b>Likes: </b> <i>{{blog.liked_blog.count}}</i> ,
+                            <b>Comments: </b> <i>{{blog.blog_comment.count}}</i>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-justify">{{ blog.blog_content|range_filter|linebreaks }}</p> 
+                            <a href="{% url 'App_Blog:blog_detail' slug=blog.slug %}" class="btn btn-sm btn-primary my-2">Read More</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="text-justify">{{ blog.blog_content|range_filter|linebreaks }}</p> 
-                    <a href="{% url 'App_Blog:blog_detail' slug=blog.slug %}" class="btn btn-sm btn-primary my-2">Read More</a>
+                <div class="col-md-4">
+                    <div class="card my-2">
+                    <div class="card-body">
+                        <img src="/media/{{blog.blog_image}}" class="img-fluid rounded my-2" style="float: right; margin-left: 10px; width: 90%; height: 70%;" alt="Blog Image">
+                
+                    </div>  
+                    </div>  
                 </div>
+                <hr>
+                {% endfor %}
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card my-2">
-            <div class="card-body">
-                <img src="/media/{{blog.blog_image}}" class="img-fluid rounded my-2" style="float: right; margin-left: 10px; width: 90%; height: 70%;" alt="Blog Image">
-        
-            </div>  
-            </div>  
-        </div>
-        <hr>
-        {% endfor %}
-    </div>
-</div>
 {% endblock %}
 
 </body>
